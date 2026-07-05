@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
-
+from analytics.sevices import update_user_analytics
 from .models import InterviewSession, InterviewQuestion
 from accounts.serializers import InterviewSessionSerializer,InterviewQuestionSerializer
 from resumes.services.gorq_service import generate_interview_questions,evaluate_answer
@@ -68,8 +68,9 @@ class InterviewQuestionViewSet(viewsets.ModelViewSet):
      question.answer = answer
      question.score = result["score"]
      question.feedback = result["feedback"]
-
+     update_user_analytics(question.session.user)
      question.save()
+     
 
      return Response(
         InterviewQuestionSerializer(question).data

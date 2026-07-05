@@ -29,6 +29,7 @@ urlpatterns = [
     path("api/",include("accounts.urls") ),
     path("api/",include("resumes.urls")),
     path("api/", include("interviews.urls")),
+    path("api/", include("analytics.urls")),
     path("api/token/",TokenObtainPairView.as_view()),
     path("api/token/refresh/",TokenRefreshView.as_view()),
 ]

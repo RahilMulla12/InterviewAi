@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import User
 from interviews.models import InterviewSession,InterviewQuestion
 from resumes.models import Resume
+from analytics.models import UserAnalytics
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -70,3 +71,9 @@ class ResumeSerializer(serializers.ModelSerializer):
             "extracted_skills",
             "uploaded_at"
         )
+
+
+class UserAnalyticsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserAnalytics
+        fields = "__all__"
