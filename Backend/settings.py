@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'interviews',
     'resumes',
     'analytics',
+    'dashboard',
 ]
 
 MIDDLEWARE = [

@@ -28,10 +28,18 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = User
-        exclude = [
+        fields = [
+            "id",
+            "username",
+            "email",
+            "role",
+            "bio",
+            "profile_picture",
+            "created_at",
+        ]
+        read_only = [
             "password",
             "groups",
             "user_permissions"
