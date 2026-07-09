@@ -158,7 +158,7 @@ REST_FRAMEWORK = {
 }
 AUTH_USER_MODEL = "accounts.User"
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
+    "https://interview-ai-front-end.vercel.app/"
 ]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
