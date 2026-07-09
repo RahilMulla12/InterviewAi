@@ -32,11 +32,10 @@ DEBUG = os.getenv("DEBUG", "True") == "True"
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 ALLOWED_HOSTS = [
+    ".onrender.com",
     "127.0.0.1",
     "localhost",
-    ".onrender.com",
 ]
-
 
 # Application definition
 
@@ -157,11 +156,12 @@ REST_FRAMEWORK = {
     ),
 }
 AUTH_USER_MODEL = "accounts.User"
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 CORS_ALLOWED_ORIGINS = [
     "https://interview-ai-front-end.vercel.app",
 ]
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+
 CSRF_TRUSTED_ORIGINS = [
     "https://interview-ai-front-end.vercel.app",
 ]
