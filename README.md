@@ -1,48 +1,50 @@
-# Interview AI Frontend
+# Interview AI Backend
 
-A modern React application that allows users to upload resumes, generate AI-powered interview questions, take mock interviews, receive AI feedback, and monitor their interview performance through analytics.
+A Django REST Framework backend for the Interview AI Platform. It provides secure authentication, resume parsing, AI-powered interview question generation, answer evaluation, analytics, and user profile management.
 
 ## Features
 
-* User Authentication
-* Dashboard
-* Resume Upload
-* Automatic Skill Detection
-* Interview Setup
-* AI Question Generation
-* Answer Submission
-* AI Evaluation & Feedback
-* Analytics Dashboard
+* JWT Authentication
+* User Registration & Login
+* Resume Upload (PDF)
+* Resume Skill Extraction using Groq AI
+* AI Interview Question Generation
+* Answer Evaluation & Scoring
+* Interview Analytics
 * User Profile Management
-* Responsive Bootstrap UI
+* PostgreSQL Database
+* REST API using Django REST Framework
 
 ---
 
 ## Tech Stack
 
-* React
-* Vite
-* React Router
-* Bootstrap 5
-* React Hot Toast
-* Fetch API
+* Python
+* Django
+* Django REST Framework
+* PostgreSQL
 * JWT Authentication
-* Vercel
+* Groq API
+* PyMuPDF
+* Gunicorn
+* WhiteNoise
+* Render
 
 ---
 
 ## Project Structure
 
 ```text
-src/
-│── components/
-│── Context/
-│── layouts/
-│── pages/
-│── Service/
-│── utils/
-│── App.jsx
-│── main.jsx
+Backend/
+│── accounts/
+│── analytics/
+│── dashboard/
+│── interviews/
+│── resumes/
+│── Backend/
+│── media/
+│── manage.py
+│── requirements.txt
 ```
 
 ---
@@ -53,29 +55,65 @@ Clone the repository:
 
 ```bash
 git clone <repository-url>
-cd Frontend
+cd Backend
+```
+
+Create a virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate it:
+
+Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+Linux / macOS
+
+```bash
+source .venv/bin/activate
 ```
 
 Install dependencies:
 
 ```bash
-npm install
+pip install -r requirements.txt
 ```
 
 ---
 
 ## Environment Variables
 
-Create a `.env` file for local development:
+Create a `.env` file in the project root.
 
 ```env
-VITE_API_URL=http://127.0.0.1:8000/api/
+SECRET_KEY=your_secret_key
+
+DEBUG=True
+
+DATABASE_URL=postgresql://username:password@localhost:5432/interview_db
+
+GROQ_API_KEY=your_groq_api_key
 ```
 
-For production:
+---
 
-```env
-VITE_API_URL=https://your-backend.onrender.com/api/
+## Database Migration
+
+```bash
+python manage.py makemigrations
+
+python manage.py migrate
+```
+
+Create an admin user:
+
+```bash
+python manage.py createsuperuser
 ```
 
 ---
@@ -83,68 +121,84 @@ VITE_API_URL=https://your-backend.onrender.com/api/
 ## Run Development Server
 
 ```bash
-npm run dev
+python manage.py runserver
 ```
 
-Frontend will be available at:
+Backend will be available at:
 
 ```
-http://localhost:5173
-```
-
----
-
-## Build Production Version
-
-```bash
-npm run build
-```
-
-Preview the production build:
-
-```bash
-npm run preview
+http://127.0.0.1:8000/
 ```
 
 ---
 
-## Pages
+## API Endpoints
 
-* Login
-* Register
-* Dashboard
-* Resume Upload
-* Interview Setup
-* Interview Session
-* Analytics
-* Profile
+### Authentication
+
+| Method | Endpoint              |
+| ------ | --------------------- |
+| POST   | `/api/users/`         |
+| POST   | `/api/token/`         |
+| POST   | `/api/token/refresh/` |
+
+### Resume
+
+| Method | Endpoint        |
+| ------ | --------------- |
+| GET    | `/api/resumes/` |
+| POST   | `/api/resumes/` |
+
+### Interviews
+
+| Method | Endpoint                                   |
+| ------ | ------------------------------------------ |
+| GET    | `/api/interviews/`                         |
+| POST   | `/api/interviews/`                         |
+| POST   | `/api/interviews/{id}/generate_questions/` |
+
+### Questions
+
+| Method | Endpoint                             |
+| ------ | ------------------------------------ |
+| GET    | `/api/interviews/{id}/questions/`    |
+| POST   | `/api/questions/{id}/submit_answer/` |
+
+### Analytics
+
+| Method | Endpoint          |
+| ------ | ----------------- |
+| GET    | `/api/analytics/` |
+
+### Dashboard
+
+| Method | Endpoint          |
+| ------ | ----------------- |
+| GET    | `/api/dashboard/` |
+
+### Profile
+
+| Method | Endpoint         |
+| ------ | ---------------- |
+| GET    | `/api/users/me/` |
+| PATCH  | `/api/users/me/` |
 
 ---
 
 ## Deployment
 
-Frontend is deployed on Vercel.
+Backend is deployed on Render.
 
 Production stack:
 
-* React
-* Vite
-* Bootstrap
-* Vercel
-
----
-
-## Backend Connection
-
-The frontend communicates with the Django REST API through the environment variable:
-
-```env
-VITE_API_URL=https://your-backend.onrender.com/api/
-```
+* Django
+* Gunicorn
+* WhiteNoise
+* PostgreSQL
+* Render
 
 ---
 
 ## Author
 
 **Rahil Mulla**
-# InterviewAi
